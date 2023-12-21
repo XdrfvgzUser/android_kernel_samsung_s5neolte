@@ -1,0 +1,28 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "cosmic-experimental-1.6" ]
+  pull_request:
+    branches: [ "cosmic-experimental-1.6" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: configure
+      run: ./configure
+
+    - name: Install dependencies
+      run: make defconf
+           make
+
+    - name: Run check
+      run: make check
+
+    - name: Run distcheck
+      run: make distcheck
